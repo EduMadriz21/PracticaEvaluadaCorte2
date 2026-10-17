@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.practicaevaluadacorte2.controller.ProductoController">
+    <padding>
+        <Insets topRightBottomLeft="12" />
+    </padding>
+
+    <top>
+        <VBox spacing="8">
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Catálogo de productos" />
+            <HBox alignment="CENTER_LEFT" spacing="8">
+                <Label text="Buscar:" />
+                <TextField fx:id="txtBuscar" onAction="#onBuscar" prefWidth="220" promptText="Nombre o código" />
+                <Label text="Categoría:" />
+                <ComboBox fx:id="cbFiltroCategoria" prefWidth="140" />
+                <CheckBox fx:id="chkSoloExistencias" text="Solo con existencias" />
+                <Button fx:id="btnBuscar" defaultButton="true" onAction="#onBuscar" text="Buscar" />
+                <Button fx:id="btnLimpiarFiltros" onAction="#onLimpiarFiltros" text="Limpiar filtros" />
+                <Button fx:id="btnRecargar" onAction="#onRecargar" text="Recargar" />
+            </HBox>
+            <padding>
+                <Insets bottom="10" />
+            </padding>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tblProductos">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="50" text="ID" />
+                <TableColumn fx:id="colCodigo" prefWidth="80" text="Código" />
+                <TableColumn fx:id="colNombre" prefWidth="230" text="Nombre" />
+                <TableColumn fx:id="colCategoria" prefWidth="110" text="Categoría" />
+                <TableColumn fx:id="colPrecio" prefWidth="90" style="-fx-alignment: CENTER-RIGHT;" text="Precio" />
+                <TableColumn fx:id="colStock" prefWidth="70" style="-fx-alignment: CENTER-RIGHT;" text="Stock" />
+            </columns>
+        </TableView>
+    </center>
+
+    <right>
+        <VBox prefWidth="230" spacing="6">
+            <padding>
+                <Insets left="12" />
+            </padding>
+            <Label style="-fx-font-weight: bold;" text="Formulario" />
+            <Label text="ID" />
+            <TextField fx:id="txtId" focusTraversable="false" />
+            <Label text="Código" />
+            <TextField fx:id="txtCodigo" />
+            <Label text="Nombre" />
+            <TextField fx:id="txtNombre" />
+            <Label text="Categoría" />
+            <ComboBox fx:id="cbCategoria" maxWidth="Infinity" />
+            <Label text="Precio" />
+            <TextField fx:id="txtPrecio" />
+            <Label text="Stock" />
+            <TextField fx:id="txtStock" />
+            <Button fx:id="btnNuevoLimpiarFormulario" maxWidth="Infinity" onAction="#onNuevo" text="Nuevo / Limpiar formulario" />
+            <HBox spacing="6">
+                <Button disable="true" text="Guardar" />
+                <Button disable="true" text="Actualizar" />
+                <Button disable="true" text="Eliminar" />
+            </HBox>
+        </VBox>
+    </right>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="16">
+            <padding>
+                <Insets top="10" />
+            </padding>
+            <Label fx:id="lblContador" text="Registros visibles: 0" />
+            <Label fx:id="lblMensaje" wrapText="true" />
+        </HBox>
+    </bottom>
+</BorderPane>

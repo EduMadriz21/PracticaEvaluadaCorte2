@@ -1,0 +1,7 @@
+# Copie este archivo como config/db.properties (ese nombre está en .gitignore) y complete la contraseña.
+# PostgreSQL 18 de este equipo escucha en 5432 (el 17 usa 5433); verifique el suyo en postgresql.conf.
+db.host=localhost
+db.port=5432
+db.name=papeleria_campus
+db.user=postgres
+db.password=COMPLETAR_CONTRASENA

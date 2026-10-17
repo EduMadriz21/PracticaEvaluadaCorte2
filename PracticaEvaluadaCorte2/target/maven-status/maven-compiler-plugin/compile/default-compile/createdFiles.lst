@@ -1,0 +1,8 @@
+module-info.class
+org\example\practicaevaluadacorte2\dao\ProductoDAO.class
+org\example\practicaevaluadacorte2\controller\ProductoController$1.class
+org\example\practicaevaluadacorte2\Launcher.class
+org\example\practicaevaluadacorte2\controller\ProductoController.class
+org\example\practicaevaluadacorte2\database\ConexionBD.class
+org\example\practicaevaluadacorte2\ProductoApplication.class
+org\example\practicaevaluadacorte2\model\Producto.class
