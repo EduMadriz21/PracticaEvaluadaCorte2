@@ -1,0 +1,96 @@
+Registro de comprobaciones 2026-10-17 (sonda JavaFX temporal sobre el FXML y el controlador reales; base papeleria_campus). Cada línea PASS/FAIL es una comprobación; las claves de la base no se registran.
+
+=== B1-B7 y regresión de la interfaz
+PASS carga 12 :: n=12 [Registros visibles: 12] msg=''
+PASS B1 :: P001,P002
+PASS B2 :: T001,T002,T003,T004
+PASS B3 :: P001,P002,P003,P004
+PASS B4 :: A001,A002,A004,P001,P002,P003,T001,T002,T003
+PASS B5 :: T001,T003
+PASS B6 :: n=0 [Registros visibles: 0] msg='Sin coincidencias'
+PASS B7 :: n=12 [Registros visibles: 12] msg=''
+PASS Recargar conserva filtros :: T001,T003
+PASS selección carga formulario :: 7/T003
+PASS Nuevo limpia y conserva filtros :: T001,T003
+RESULTADO b: fallos=0
+
+=== V1-V10 (crear y actualizar)
+PASS precondición: 12 filas y X001 ausente :: 12 AUSENTE
+PASS V1 crear código vacío :: msg='El código debe tener entre 1 y 10 caracteres.' db=12
+PASS V1 crear código espacios :: msg='El código debe tener entre 1 y 10 caracteres.' db=12
+PASS V1 crear código 11 :: msg='El código debe tener entre 1 y 10 caracteres.' db=12
+PASS V2 crear nombre espacios :: msg='El nombre debe tener entre 3 y 80 caracteres.' db=12
+PASS V2 crear nombre AB :: msg='El nombre debe tener entre 3 y 80 caracteres.' db=12
+PASS V2 crear nombre 81 :: msg='El nombre debe tener entre 3 y 80 caracteres.' db=12
+PASS V3 crear sin categoría :: msg='Seleccione una categoría: Papelería, Tecnología o Accesorios.' db=12
+PASS V4 crear precio abc :: msg='El precio debe ser un número con punto decimal, por ejemplo 12.50.' db=12
+PASS V5 crear precio 0 :: msg='El precio debe estar entre 0.01 y 99999999.99.' db=12
+PASS V5 crear precio -1 :: msg='El precio debe estar entre 0.01 y 99999999.99.' db=12
+PASS V6 crear precio 12.345 :: msg='El precio admite como máximo dos decimales.' db=12
+PASS V6 crear precio 100000000.00 :: msg='El precio debe estar entre 0.01 y 99999999.99.' db=12
+PASS V7 crear stock abc :: msg='El stock debe ser un número entero, sin decimales ni letras.' db=12
+PASS V7 crear stock 2.5 :: msg='El stock debe ser un número entero, sin decimales ni letras.' db=12
+PASS V8 crear stock -1 :: msg='El stock debe estar entre 0 y 2147483647.' db=12
+PASS V8 crear stock 2147483648 :: msg='El stock debe estar entre 0 y 2147483647.' db=12
+PASS V9 crear código ' p001 ' duplicado :: msg='Ya existe un producto con el código P001.' db=12
+PASS V10 actualizar sin selección :: msg='Seleccione un producto de la tabla para actualizarlo.' db=12
+PASS V10 eliminar sin selección :: msg='Seleccione un producto de la tabla para eliminarlo.' db=12
+PASS crear X001 válido :: 23|X001|Producto de prueba|Accesorios|10.00|1
+PASS X001 seleccionado :: X001
+PASS V1 actualizar código vacío :: msg='El código debe tener entre 1 y 10 caracteres.' db=13
+PASS V1 actualizar código 11 :: msg='El código debe tener entre 1 y 10 caracteres.' db=13
+PASS V2 actualizar nombre AB :: msg='El nombre debe tener entre 3 y 80 caracteres.' db=13
+PASS V3 actualizar sin categoría :: msg='Seleccione una categoría: Papelería, Tecnología o Accesorios.' db=13
+PASS V4 actualizar precio abc :: msg='El precio debe ser un número con punto decimal, por ejemplo 12.50.' db=13
+PASS V5 actualizar precio 0 :: msg='El precio debe estar entre 0.01 y 99999999.99.' db=13
+PASS V6 actualizar 12.345 :: msg='El precio admite como máximo dos decimales.' db=13
+PASS V6 actualizar 100000000.00 :: msg='El precio debe estar entre 0.01 y 99999999.99.' db=13
+PASS V7 actualizar stock 2.5 :: msg='El stock debe ser un número entero, sin decimales ni letras.' db=13
+PASS V8 actualizar stock 2147483648 :: msg='El stock debe estar entre 0 y 2147483647.' db=13
+PASS V9 actualizar a código P001 (duplicado) :: msg='Ya existe otro producto con el código P001.' db=13
+PASS X001 sin cambios tras rechazos :: 23|X001|Producto de prueba|Accesorios|10.00|1
+PASS V8 stock 0 aceptado + V9 conserva su propio código :: 23|X001|Producto de prueba|Accesorios|10.00|0 / Producto actualizado.
+PASS estado final: 12 filas :: 12 AUSENTE
+RESULTADO v: fallos=0
+
+=== Ciclo CRUD, ejecución 1: crear y actualizar X001
+PASS precondición: 12 filas y X001 ausente :: 12 AUSENTE
+PASS crear X001 -> 13 en BD :: 24|X001|Producto de prueba|Accesorios|10.00|1
+PASS tabla y contador sin reiniciar :: n=13 [Registros visibles: 13] msg='Producto guardado.'
+PASS formulario limpio tras guardar :: 
+PASS actualizar X001 -> 15.50/3, 13 filas :: 24|X001|Producto de prueba|Accesorios|15.50|3
+PASS otros productos intactos :: P001/T003
+PASS tabla actualizada :: n=13 [Registros visibles: 13] msg='Producto actualizado.'
+RESULTADO ciclo1: fallos=0
+
+=== Ciclo CRUD, ejecución 2 (nueva JVM): persistencia, cancelar, filtro activo, eliminar
+PASS persistencia tras reiniciar: carga 13 con X001 15.50/3 :: n=13 [Registros visibles: 13] msg='' 24|X001|Producto de prueba|Accesorios|15.50|3
+PASS cancelar eliminación: permanece :: 24|X001|Producto de prueba|Accesorios|15.50|3
+PASS filtro Accesorios+existencias incluye X001 :: A001,A002,A004,X001
+PASS con filtro activo: X001 (stock 0) desaparece del listado :: A001,A002,A004 n=3 [Registros visibles: 3] msg='Producto actualizado.'
+PASS BD conserva X001 con stock 0 :: 24|X001|Producto de prueba|Accesorios|15.50|0
+PASS limpiar filtros: 13 filas :: n=13 [Registros visibles: 13] msg=''
+PASS confirmar eliminación: 12 filas :: n=12 [Registros visibles: 12] msg='Producto eliminado.'
+PASS 12 productos iniciales intactos :: A001/T004
+RESULTADO ciclo2: fallos=0
+
+=== E2 y E3
+PASS precondición 12 filas :: 12
+PASS E2 UNIQUE -> SQLException 23505 :: 23505
+PASS E2 CHECK código -> 23514 :: 23514
+PASS E2 CHECK precio -> 23514 :: 23514
+PASS E2 CHECK categoría -> 23514 :: 23514
+PASS E2 integridad: 12 filas :: 12
+PASS E3 DAO.eliminar directo borra 1 fila :: id=29
+PASS E3 actualizar inexistente: no anuncia éxito :: El producto ya no existe en la base de datos. Pulse Recargar para actualizar el listado.
+PASS E3 Recargar permite continuar :: n=12 [Registros visibles: 12] msg=''
+PASS E3 eliminar inexistente: no anuncia éxito :: El producto ya no existe en la base de datos. Pulse Recargar para actualizar el listado.
+PASS estado final: 12 filas :: 12
+RESULTADO ex: fallos=0
+
+=== E1 e E4: puerto incorrecto (59999) en una configuración temporal fuera del proyecto
+WARNING: Operación: listar productos. SQLState=08001. Connection to localhost:59999 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+PASS E1 tabla vacía :: n=0 [Registros visibles: -] msg='No se pudo conectar con PostgreSQL. Verifique que el servidor esté activo y el host, puerto y contraseña en config/db.properties.'
+PASS E1 contador '-' :: Registros visibles: -
+PASS E1 mensaje de conexión (no 'Sin coincidencias') :: No se pudo conectar con PostgreSQL. Verifique que el servidor esté activo y el host, puerto y contraseña en config/db.properties.
+RESULTADO e1: fallos=0

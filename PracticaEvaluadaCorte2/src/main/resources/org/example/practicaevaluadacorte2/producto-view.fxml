@@ -61,9 +61,9 @@
             <TextField fx:id="txtStock" />
             <Button fx:id="btnNuevoLimpiarFormulario" maxWidth="Infinity" onAction="#onNuevo" text="Nuevo / Limpiar formulario" />
             <HBox spacing="6">
-                <Button disable="true" text="Guardar" />
-                <Button disable="true" text="Actualizar" />
-                <Button disable="true" text="Eliminar" />
+                <Button fx:id="btnGuardar" onAction="#onGuardar" text="Guardar" />
+                <Button fx:id="btnActualizar" onAction="#onActualizar" text="Actualizar" />
+                <Button fx:id="btnEliminar" onAction="#onEliminar" text="Eliminar" />
             </HBox>
         </VBox>
     </right>
